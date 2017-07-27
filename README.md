@@ -28,6 +28,7 @@ How to run the application?
 
 
 ######################################
+
 views created in the database:
 
 create view top_articles as 
