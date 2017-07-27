@@ -1,4 +1,5 @@
 #######################################
+
 Introduction:
 	This is a reporting analysis application written in python and used to extract informations from the postgresql database, 
 	information could be extracted from the database are:
@@ -11,20 +12,18 @@ Introduction:
 
 
 
-
 ######################################
+
 Contents:
 	logsAnalysis.py
 	README.md
 
 
 ######################################
+
 How to run the application?
 	First create views (listed at the end of the file) in the database
 	Then in the command line of Linuc or Mac run: python logsAnalysis.py
-
-
-
 
 
 
