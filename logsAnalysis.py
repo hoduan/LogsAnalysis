@@ -1,50 +1,59 @@
-#! /usr/bin/env/ python2.7
+#!/usr/bin/env/ python2.7
 
 import psycopg2
 
 DBNAME = 'news'
 
 
+# this function is used to connect to the database
+def connect(database_name):
+    #Connect to the PostgreSQL database.  Returns a database connection.
+    try:
+        db = psycopg2.connect("dbname={}".format(database_name))
+        c = db.cursor()
+        return db, c
+
+    except psycopg2.Error as e:
+        print "Unable to connect to database"
+        raise e
+        # It will need to be caught by the whoever called this function
+
+
+def execute_query(query):
+    conn, cur = connect(DBNAME)
+    cur.execute(query)
+    res = cur.fetchall()
+    conn.close()
+    return res
+
+
 # this function will return a list of top 3 popular articles
 # with number of views they got
 def top3_articles():
-    conn = psycopg2.connect(database=DBNAME)
-    cur = conn.cursor()
-
-    # get the top 3 articles
     query = "select * from top_articles limit 3"
-    cur.execute(query)
-    res = cur.fetchall()
+    res = execute_query(query)
 
-    # reconstruct the output
+    # reconstruct the output and store it in a list
     s = ' -- '
     re = [s.join((a, str(n) + " views")) for a, n in res]
-    conn.close()
     return re
 
 
 # this function will return a list of the popular authors with number
 # of views their articles got ordered in a descending way
 def top_authors():
-    conn = psycopg2.connect(database=DBNAME)
-    cur = conn.cursor()
     query = "select * from top_authors"
-    cur.execute(query)
-    res = cur.fetchall()
+    res = execute_query(query)
 
     # reconstruct the output and store it in a list
     s = ' -- '
     re = [s.join((a, str(n) + " views")) for a, n in res]
-
-    conn.close()
     return re
 
 
 # this function will return a list of dates on which more than
 # 1% request leads to errors
 def dates_with_error():
-    conn = psycopg2.connect(database=DBNAME)
-    cur = conn.cursor()
     query = """\
         select status_ok.time as date,
         (status_error.num::float / (status_error.num + status_ok.num)) as rate
@@ -53,13 +62,11 @@ def dates_with_error():
         where (status_error.num::float / (status_error.num + status_ok.num))
         > 0.01;
         """
-    cur.execute(query)
-    res = cur.fetchall()
+    res = execute_query(query)
 
     # reconstruct the output and sotre it in a list
     s = ' -- '
     re = [s.join((str(a), str(round(n * 100, 2)) + '% error')) for a, n in res]
-    conn.close()
     return re
 
 
