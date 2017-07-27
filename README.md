@@ -30,6 +30,7 @@ How to run the application?
 
 
 Output example:
+	
 	######################################################
 	Here list the top 3 popular articles from the database: 
 	Candidate is jerk, alleges rival -- 338647 views
