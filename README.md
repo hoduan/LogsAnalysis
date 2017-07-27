@@ -27,6 +27,31 @@ How to run the application?
 
 
 
+
+
+Output example:
+	######################################################
+	Here list the top 3 popular articles from the database: 
+	Candidate is jerk, alleges rival -- 338647 views
+	Bears love berries, alleges bear -- 253801 views
+	Bad things gone, say good people -- 170098 views
+
+
+	#####################################################
+	Here list the author rank from the database: 
+	Ursula La Multa -- 507594 views
+	Rudolf von Treppenwitz -- 423457 views
+	Anonymous Contributor -- 170098 views
+	Markoff Chaney -- 84557 views
+
+
+	#####################################################
+	Here list the dates with error more than 1% from the database:
+
+
+
+
+
 ######################################
 
 views created in the database:
